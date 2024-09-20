@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <style>
+        /* Estilos para a calculadora */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            width: 350px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .calculator input[type="text"],
+        .calculator select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .calculator button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .calculator button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #ff0000;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Calculadora</h2>
+        <form method="POST" action="{% url 'calculate' %}">
+            {% csrf_token %}
+            <input type="text" name="numero1" placeholder="Digite o primeiro número" required>
+            <input type="text" name="numero2" placeholder="Digite o segundo número" required>
+            <select name="operacao" required>
+                <option value="somar">Somar</option>
+                <option value="subtrair">Subtrair</option>
+                <option value="multiplicar">Multiplicar</option>
+                <option value="dividir">Dividir</option>
+            </select>
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if resultado %}
+        <div class="result">
+            Resultado: {{ resultado }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
